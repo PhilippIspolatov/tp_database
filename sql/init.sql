@@ -87,7 +87,7 @@ create index if not exists threads_forum_created on threads (forum, created);
 create index if not exists threads_author_forum on threads (author, forum);
 create index if not exists posts_path_id on posts (id, (path[1]));
 create index if not exists posts_path_1 on posts ((path[1]));
-create index if not exists posts_thread_path_id on posts (thread, path, id);
+-- create index if not exists posts_thread_path_id on posts (thread, path, id);
 create index if not exists posts_thread_id_path_parent on posts (thread, id, (path[1]), parent);
 create index if not exists nickname_thread_vote on votes (nickname, thread);
 create index if not exists forum_nickname_fu on forums_users (forum, nickname);
