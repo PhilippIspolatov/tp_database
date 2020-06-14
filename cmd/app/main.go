@@ -3,6 +3,8 @@ package main
 import (
 	"database/sql"
 	"log"
+	"github.com/ifo16u375/tp_database/internal/db"
+	"github.com/sirupsen/logrus"
 
 	forumDelivery "github.com/ifo16u375/tp_db/internal/forum/delivery"
 	forumRepo "github.com/ifo16u375/tp_db/internal/forum/repository"
@@ -35,16 +37,33 @@ func main() {
 		Format: "method=${method}, uri=${uri}, status=${status}, time=${time_rfc3339_nano} latency=${latency_human}\n",
 	}))
 
-	conn, _ := sql.Open("postgres", "host=localhost port=5432 database=docker user=docker password=docker sslmode=disable")
-	if err := conn.Ping(); err != nil {
-		log.Fatal(err)
+	// conn, _ := sql.Open("postgres", "host=localhost port=5432 database=docker user=docker password=docker sslmode=disable")
+	// if err := conn.Ping(); err != nil {
+	// 	log.Fatal(err)
+	// }
+
+	db, err := db.NewDataBase("")
+
+	if err != nil {
+		logrus.Info(err)
+		return
 	}
-	userRep := userRepo.NewUserRepository(conn)
-	forumRep := forumRepo.NewForumRepository(conn)
-	threadRep := threadRepo.NewThreadRepository(conn)
-	postRep := postRepo.NewPostRepository(conn)
-	voteRep := voteRepo.NewVoteRepository(conn)
-	serviceRep := serviceRepo.NewServiceRepository(conn)
+
+	defer func() {
+		err := db.Conn.Close
+
+		if err != nil {
+			logrus.Info(err)
+			return
+		}
+	}()
+
+	userRep := userRepo.NewUserRepository(db.Conn)
+	forumRep := forumRepo.NewForumRepository(db.Conn)
+	threadRep := threadRepo.NewThreadRepository(db.Conn)
+	postRep := postRepo.NewPostRepository(db.Conn)
+	voteRep := voteRepo.NewVoteRepository(db.Conn)
+	serviceRep := serviceRepo.NewServiceRepository(db.Conn)
 
 	userUCase := userUcase.NewUserUsecase(userRep)
 	forumUCase := forumUcase.NewForumUsecase(forumRep)
