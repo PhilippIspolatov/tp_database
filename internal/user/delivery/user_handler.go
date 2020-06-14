@@ -3,10 +3,10 @@ package delivery
 import (
 	"net/http"
 
-	"github.com/ifo16u375/tp_db/internal/forum"
-	"github.com/ifo16u375/tp_db/internal/models"
-	"github.com/ifo16u375/tp_db/internal/tools"
-	"github.com/ifo16u375/tp_db/internal/user"
+	"github.com/PhilippIspolatov/tp_db/internal/forum"
+	"github.com/PhilippIspolatov/tp_db/internal/models"
+	"github.com/PhilippIspolatov/tp_db/internal/tools"
+	"github.com/PhilippIspolatov/tp_db/internal/user"
 	"github.com/labstack/echo"
 	"github.com/sirupsen/logrus"
 )
@@ -90,8 +90,9 @@ func (uh *UserHandler) UpdateUser() echo.HandlerFunc {
 				return c.JSON(http.StatusNotFound, tools.Message{
 					Message: "Not found"})
 			}
-			return c.JSON(http.StatusBadRequest, tools.Error{
-				ErrMsg: tools.BadRequest.Error(),
+			logrus.Info("UserErr", err)
+			return c.JSON(http.StatusNotFound, tools.Error{
+				ErrMsg: tools.ErrNotFound.Error(),
 			})
 		}
 		return c.JSON(http.StatusOK, u)

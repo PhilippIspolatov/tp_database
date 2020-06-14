@@ -1,29 +1,28 @@
 package main
 
 import (
-	"database/sql"
 	"log"
-	"github.com/ifo16u375/tp_database/internal/db"
+	"github.com/PhilippIspolatov/tp_db/internal/db"
 	"github.com/sirupsen/logrus"
 
-	forumDelivery "github.com/ifo16u375/tp_db/internal/forum/delivery"
-	forumRepo "github.com/ifo16u375/tp_db/internal/forum/repository"
-	forumUcase "github.com/ifo16u375/tp_db/internal/forum/usecase"
-	postDelivery "github.com/ifo16u375/tp_db/internal/post/delivery"
-	postRepo "github.com/ifo16u375/tp_db/internal/post/repository"
-	postUcase "github.com/ifo16u375/tp_db/internal/post/usecase"
-	serviceDelivery "github.com/ifo16u375/tp_db/internal/service/delivery"
-	serviceRepo "github.com/ifo16u375/tp_db/internal/service/repository"
-	serviceUcase "github.com/ifo16u375/tp_db/internal/service/usecase"
-	threadDelivery "github.com/ifo16u375/tp_db/internal/thread/delivery"
-	threadRepo "github.com/ifo16u375/tp_db/internal/thread/repository"
-	threadUcase "github.com/ifo16u375/tp_db/internal/thread/usecase"
-	userDelivery "github.com/ifo16u375/tp_db/internal/user/delivery"
-	userRepo "github.com/ifo16u375/tp_db/internal/user/repository"
-	userUcase "github.com/ifo16u375/tp_db/internal/user/usecase"
-	voteDelivery "github.com/ifo16u375/tp_db/internal/vote/delivery"
-	voteRepo "github.com/ifo16u375/tp_db/internal/vote/repository"
-	voteUcase "github.com/ifo16u375/tp_db/internal/vote/usecase"
+	forumDelivery "github.com/PhilippIspolatov/tp_db/internal/forum/delivery"
+	forumRepo "github.com/PhilippIspolatov/tp_db/internal/forum/repository"
+	forumUcase "github.com/PhilippIspolatov/tp_db/internal/forum/usecase"
+	postDelivery "github.com/PhilippIspolatov/tp_db/internal/post/delivery"
+	postRepo "github.com/PhilippIspolatov/tp_db/internal/post/repository"
+	postUcase "github.com/PhilippIspolatov/tp_db/internal/post/usecase"
+	serviceDelivery "github.com/PhilippIspolatov/tp_db/internal/service/delivery"
+	serviceRepo "github.com/PhilippIspolatov/tp_db/internal/service/repository"
+	serviceUcase "github.com/PhilippIspolatov/tp_db/internal/service/usecase"
+	threadDelivery "github.com/PhilippIspolatov/tp_db/internal/thread/delivery"
+	threadRepo "github.com/PhilippIspolatov/tp_db/internal/thread/repository"
+	threadUcase "github.com/PhilippIspolatov/tp_db/internal/thread/usecase"
+	userDelivery "github.com/PhilippIspolatov/tp_db/internal/user/delivery"
+	userRepo "github.com/PhilippIspolatov/tp_db/internal/user/repository"
+	userUcase "github.com/PhilippIspolatov/tp_db/internal/user/usecase"
+	voteDelivery "github.com/PhilippIspolatov/tp_db/internal/vote/delivery"
+	voteRepo "github.com/PhilippIspolatov/tp_db/internal/vote/repository"
+	voteUcase "github.com/PhilippIspolatov/tp_db/internal/vote/usecase"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	_ "github.com/lib/pq"
@@ -42,7 +41,7 @@ func main() {
 	// 	log.Fatal(err)
 	// }
 
-	db, err := db.NewDataBase("")
+	db, err := db.NewDataBase("./db.json")
 
 	if err != nil {
 		logrus.Info(err)

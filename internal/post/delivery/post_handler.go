@@ -5,13 +5,14 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/ifo16u375/tp_db/internal/forum"
-	"github.com/ifo16u375/tp_db/internal/models"
-	"github.com/ifo16u375/tp_db/internal/post"
-	"github.com/ifo16u375/tp_db/internal/thread"
-	"github.com/ifo16u375/tp_db/internal/tools"
-	"github.com/ifo16u375/tp_db/internal/user"
+	"github.com/PhilippIspolatov/tp_db/internal/forum"
+	"github.com/PhilippIspolatov/tp_db/internal/models"
+	"github.com/PhilippIspolatov/tp_db/internal/post"
+	"github.com/PhilippIspolatov/tp_db/internal/thread"
+	"github.com/PhilippIspolatov/tp_db/internal/tools"
+	"github.com/PhilippIspolatov/tp_db/internal/user"
 	"github.com/labstack/echo"
+	"github.com/sirupsen/logrus"
 )
 
 type PostHandler struct {
@@ -200,15 +201,16 @@ func (ph *PostHandler) GetSortedPosts() echo.HandlerFunc {
 			t, err := ph.threadUcase.SelectThreadBySlug(slug)
 			if err != nil {
 				return c.JSON(http.StatusNotFound, tools.Message{
-					Message: "not found",
+					Message: "not found1",
 				})
 			}
 
 			posts, err := ph.postUcase.SelectSortesPosts(t.Id, req.Sort, req.Desc, req.Since, req.Limit)
 
 			if err != nil {
+				logrus.Info("ACD", err)
 				return c.JSON(http.StatusNotFound, tools.Message{
-					Message: "not found",
+					Message: "not found2",
 				})
 			}
 
@@ -219,7 +221,7 @@ func (ph *PostHandler) GetSortedPosts() echo.HandlerFunc {
 
 		if err != nil {
 			return c.JSON(http.StatusNotFound, tools.Message{
-				Message: "not found",
+				Message: "not found3",
 			})
 		}
 
@@ -227,7 +229,7 @@ func (ph *PostHandler) GetSortedPosts() echo.HandlerFunc {
 
 		if err != nil {
 			return c.JSON(http.StatusNotFound, tools.Message{
-				Message: "not found",
+				Message: "not found4",
 			})
 		}
 
